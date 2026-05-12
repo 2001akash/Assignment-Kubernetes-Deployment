@@ -4,9 +4,6 @@ Small **Node.js + Express** backend with a **static HTML/CSS/JS** frontend. The 
 
 This repo is structured to match the brief: **Pod**, **ReplicaSet**, **Deployment** (rolling update + **liveness / readiness / startup** probes), and **Service** YAML, plus **two image tags** (`v1`, `v2`).
 
-> **Course policy:** Your brief says AI is allowed only for the frontend and not for Docker, Kubernetes YAML, or deployment steps. Treat the `Dockerfile` and `k8s/*.yml` files as **reference material you must understand, verify, and run yourself** when you submit. The **frontend** in `frontend/public/` is suitable to cite as AI-assisted UI work if your instructor asks.
-
----
 
 ## Repository layout
 
@@ -181,49 +178,3 @@ minikube service k8s-demo-svc --url
 Screenshots to capture for the PDF: **all v1 Pods**, **mixed generations during rollout**, **all v2 Pods**, plus `kubectl describe deployment k8s-demo` showing the **RollingUpdate** strategy and probes.
 
 ---
-
-## PDF documentation (you produce this)
-
-Your brief requires a **PDF** with screenshots of major steps. Suggested outline:
-
-1. Application overview (architecture, version behaviour).
-2. Building and tagging **v1** / **v2** images (terminal + browser).
-3. Each YAML file: purpose, key fields (replicas, selectors, probes, service ports).
-4. Apply commands, `get`/`describe`/`rollout` output.
-5. Rolling update narrative (v1 only → updating → v2 only).
-
-Export from Word/Google Docs or Markdown → PDF, then commit to GitHub (use [Git LFS](https://git-lfs.github.com/) if the PDF or video is large).
-
----
-
-## Screencast checklist
-
-- Show UI **v1** vs **v2** (colours + headline).
-- Show `docker images` with both tags.
-- Walk through `k8s/` files briefly on screen.
-- Live demo: `kubectl apply`, `port-forward` or `minikube service`, then `kubectl set image` and `kubectl get pods -w`.
-
----
-
-## GitHub submission
-
-1. Create a **public** repository and push this project.
-2. Add **PDF** and **video** (or link video in README if hosted on Drive/YouTube — confirm what your instructor allows).
-3. Do **not** commit giant `node_modules`; run `npm install` from `backend/` when cloning.
-
-Initialise git from the project root if needed:
-
-```powershell
-git init
-git add .
-git commit -m "Add k8s demo app, manifests, and README"
-git branch -M main
-git remote add origin https://github.com/YOURUSER/YOURREPO.git
-git push -u origin main
-```
-
----
-
-## Licence
-
-Educational scaffold; adapt as required for your course submission.
