@@ -1,0 +1,18 @@
+# Service routes stable virtual IP / DNS to Pods selected by labels.
+# Use with the Deployment pods (labels app=k8s-demo, tier=web).
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8s-demo-svc
+  namespace: demo
+  labels:
+    app: k8s-demo
+spec:
+  type: ClusterIP
+  selector:
+    app: k8s-demo
+    tier: web
+  ports:
+    - name: http
+      port: 80
+      targetPort: http

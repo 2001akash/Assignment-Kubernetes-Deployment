@@ -1,0 +1,21 @@
+# Minimal Pod: one replica of the app (v1 image).
+# Replace the image with your registry path after you build and push.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: k8s-demo-pod
+  namespace: demo
+  labels:
+    app: k8s-demo
+    version: v1
+spec:
+  containers:
+    - name: app
+      image: k8s-demo-app:v1
+      imagePullPolicy: IfNotPresent
+      ports:
+        - name: http
+          containerPort: 8080
+      env:
+        - name: PORT
+          value: "8080"

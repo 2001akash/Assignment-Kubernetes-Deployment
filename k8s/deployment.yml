@@ -1,0 +1,58 @@
+# Deployment: declarative updates + ReplicaSet underneath.
+# Rolling update strategy and all three probe types are required for the assignment.
+# Start on v1; switch image to v2 for the rolling update demo (see README).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-demo
+  namespace: demo
+  labels:
+    app: k8s-demo
+spec:
+  replicas: 3
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: k8s-demo
+      tier: web
+  template:
+    metadata:
+      labels:
+        app: k8s-demo
+        tier: web
+    spec:
+      containers:
+        - name: app
+          image: k8s-demo-app:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: PORT
+              value: "8080"
+          startupProbe:
+            httpGet:
+              path: /api/startup
+              port: http
+            periodSeconds: 2
+            failureThreshold: 30
+          readinessProbe:
+            httpGet:
+              path: /api/ready
+              port: http
+            periodSeconds: 5
+            failureThreshold: 6
+            successThreshold: 1
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: http
+            periodSeconds: 10
+            failureThreshold: 3
+            timeoutSeconds: 2

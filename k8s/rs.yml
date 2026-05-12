@@ -1,0 +1,30 @@
+# ReplicaSet keeps a fixed number of identical Pods running.
+# Selector must match pod template labels. Image here is v1.
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: k8s-demo-rs
+  namespace: demo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: k8s-demo
+      tier: web
+  template:
+    metadata:
+      labels:
+        app: k8s-demo
+        tier: web
+        version: v1
+    spec:
+      containers:
+        - name: app
+          image: k8s-demo-app:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: PORT
+              value: "8080"

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>K8s Demo App</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <main class="shell">
+      <header class="top">
+        <p class="eyebrow">Kubernetes assignment · demo workload</p>
+        <h1 class="title">Version dashboard</h1>
+        <p class="lede">
+          This page calls <code>/api/version</code> so you can prove which container
+          image is running. v1 and v2 differ only by the image tag and
+          <code>APP_VERSION</code> baked at build time.
+        </p>
+      </header>
+
+      <section class="card" aria-live="polite">
+        <div class="card-head">
+          <span class="pill" id="statusPill">Loading</span>
+          <span class="mono" id="fetchedAt"></span>
+        </div>
+        <div class="version-block">
+          <p class="label">Active release</p>
+          <p class="version" id="versionLine">…</p>
+          <p class="sub" id="versionSub"></p>
+        </div>
+        <div class="row">
+          <div class="mini">
+            <p class="mini-label">API</p>
+            <p class="mini-value" id="apiPath">/api/version</p>
+          </div>
+          <div class="mini">
+            <p class="mini-label">Pod hint</p>
+            <p class="mini-value" id="podHint">Check via kubectl</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="checks">
+        <article>
+          <h2>What graders should see</h2>
+          <ul>
+            <li><strong>v1 image:</strong> UI shows “Version 1”.</li>
+            <li><strong>v2 image:</strong> UI shows “Version 2” with the accent palette shift.</li>
+            <li>After a rolling update, only v2 replicas should remain.</li>
+          </ul>
+        </article>
+        <article>
+          <h2>Health endpoints</h2>
+          <ul class="mono-list">
+            <li><span>GET</span> /api/health — liveness</li>
+            <li><span>GET</span> /api/ready — readiness (503 until warm-up)</li>
+            <li><span>GET</span> /api/startup — startup (503 until warm-up)</li>
+          </ul>
+        </article>
+      </section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>
