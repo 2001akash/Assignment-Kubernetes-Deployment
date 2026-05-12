@@ -175,6 +175,5 @@ minikube service k8s-demo-svc --url
    kubectl rollout history deployment/k8s-demo
    ```
 
-Screenshots to capture for the PDF: **all v1 Pods**, **mixed generations during rollout**, **all v2 Pods**, plus `kubectl describe deployment k8s-demo` showing the **RollingUpdate** strategy and probes.
 
 ---
