@@ -24,7 +24,7 @@ This repo is structured to match the brief: **Pod**, **ReplicaSet**, **Deploymen
 - **Backend:** Express on port `8080` (or `PORT` env).
 - **Endpoints:**
   - `GET /` — UI
-  - `GET /api/version` — JSON `{ "version": "1" | "2", "service": "k8s-demo-app" }`
+  - `GET /api/version` — JSON `{ version: 1 | 2, service: k8s-demo-app }`
   - `GET /api/health` — **liveness** (always 200 when process is up)
   - `GET /api/ready` — **readiness** (503 until ~10 s after process start, then 200)
   - `GET /api/startup` — **startup** (same window as readiness so startup probe has clear behavior)
@@ -38,8 +38,8 @@ Warm-up duration is controlled by `STARTUP_OK_AFTER_MS` (default `10000`). Align
 ```powershell
 cd backend
 npm install
-$env:APP_VERSION = "1"   # or "2"
-$env:PORT = "3000"     # use if 8080 is busy
+$env:APP_VERSION = 1   # or 2
+$env:PORT = 3000     # use if 8080 is busy
 node server.js
 ```
 
